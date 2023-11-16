@@ -1,0 +1,26 @@
+name: Test MS-Windows.
+permissions: read-all
+on: [ push, pull_request ]
+
+jobs:
+  test:
+    runs-on: ${{matrix.os}}
+    
+    strategy:
+      matrix:
+        os: [windows-latest]
+        emacs_version: ['29.1']
+      
+    steps:
+    - name: Set up Emacs on Windows
+      if: startsWith (matrix.os, 'windows')
+      uses: jcs090218/setup-emacs-windows@master
+      with:
+        version: ${{matrix.emacs_version}}
+
+    - name: Check out the source code
+      uses: actions/checkout@v3
+
+    - name: Test
+      run: |
+        make test

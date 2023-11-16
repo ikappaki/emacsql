@@ -49,13 +49,28 @@ binary: sqlite/emacsql-sqlite
 sqlite/emacsql-sqlite:
 	$(MAKE) -C sqlite
 
-lisp: $(ELCS) loaddefs
+# Emacs in GitHub Actions was built with nix; consequently, we must
+# also utilize nix to build its modules. This ensures proper linking
+# with the correct library paths.
+.PHONY: ci-sqlite3-nix-fix
+ci-sqlite3-nix-fix:
 
+ifdef NIX_PATH
+SQLITE3-EL-PATH = ../sqlite3/sqlite3.el
+ifneq (,$(wildcard $(SQLITE3-EL-PATH)))
+ci-sqlite3-nix-fix:
+	@echo patching $(SQLITE3-EL-PATH) to build with nix...
+	sed -i 's\("make" "all")\("nix-shell" "-p" "sqlite.dev" "--run" "make all")\g' $(SQLITE3-EL-PATH)
+endif
+endif
+
+lisp: ci-sqlite3-nix-fix $(ELCS) loaddefs
 loaddefs: $(PKG)-autoloads.el
 
 %.elc: %.el
 	@printf "Compiling $<\n"
-	@$(EMACS) -Q --batch $(EMACS_ARGS) $(LOAD_PATH) -f batch-byte-compile $<
+	@$(EMACS) -Q --batch $(EMACS_ARGS) $(LOAD_PATH) \
+	-f batch-byte-compile $<
 
 check-declare:
 	@printf " Checking function declarations\n"

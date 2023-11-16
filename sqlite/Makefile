@@ -1,7 +1,16 @@
 -include ../.config.mk
 
+ifeq ($(CI),true)
+CI_RUN = nix-shell -p sqlite.dev --run 
+endif
+
 .POSIX:
+ifeq ($(OS),Windows_NT)
+CC = gcc
+else
 LDLIBS = -ldl -lm
+endif
+
 CFLAGS = -O2 -Wall -Wextra -Wno-implicit-fallthrough \
     -DSQLITE_THREADSAFE=0 \
     -DSQLITE_DEFAULT_FOREIGN_KEYS=1 \
@@ -13,7 +22,7 @@ CFLAGS = -O2 -Wall -Wextra -Wno-implicit-fallthrough \
     -DSQLITE_SOUNDEX
 
 emacsql-sqlite: emacsql.c sqlite3.c
-	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ emacsql.c sqlite3.c $(LDLIBS)
+	$(CI_RUN) $(CC) $(CFLAGS) $(LDFLAGS) -o $@ emacsql.c sqlite3.c $(LDLIBS)
 
 clean:
 	rm -f emacsql-sqlite
