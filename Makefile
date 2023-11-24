@@ -56,7 +56,7 @@ sqlite/emacsql-sqlite:
 ci-sqlite3-nix-fix:
 
 ifdef NIX_PATH
-SQLITE3_API_BUILD_COMMAND = "nix-shell -p sqlite.dev --run \"make all\""
+ci-sqlite3-nix-fix: export SQLITE3_API_BUILD_COMMAND = "nix-shell -p sqlite.dev --run \"make all\""
 # SQLITE3-EL-PATH = ../sqlite3/sqlite3.el
 # ifneq (,$(wildcard $(SQLITE3-EL-PATH)))
 # ci-sqlite3-nix-fix:
