@@ -6,3 +6,7 @@
 
 /stats/
 /sqlite/emacsql-sqlite
+
+# Added automatically by `eldev init'.
+/.eldev
+/Eldev-local
