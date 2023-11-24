@@ -75,6 +75,7 @@ loaddefs: $(PKG)-autoloads.el
 	-f batch-byte-compile $<
 
 check-declare:
+	echo $(SQLITE3_API_BUILD_COMMAND)
 	@printf " Checking function declarations\n"
 	@$(EMACS) -Q --batch $(EMACS_ARGS) $(LOAD_PATH) \
 	--eval "(check-declare-directory default-directory)"
