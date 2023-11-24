@@ -19,14 +19,14 @@ jobs:
         emacs_version: ['29.1']
 
     steps:
-    # - name: Setup dev env (MS-Windows)
-    #   uses: msys2/setup-msys2@v2
-    #   if: startsWith (matrix.os, 'windows')
-    #   with:
-    #     msystem: MINGW64
-    #     location: D:\
-    #     pacboy: >-
-    #       gcc:p
+    - name: Setup dev env (MS-Windows)
+      uses: msys2/setup-msys2@v2
+      if: startsWith (matrix.os, 'windows')
+      with:
+        msystem: MINGW64
+        location: D:\
+        pacboy: >-
+          gcc:p sqlite3:p
 
     - name: Set up Emacs
       if: startsWith (matrix.os, 'windows')
@@ -48,11 +48,9 @@ jobs:
       uses: actions/checkout@v3
 
     - name: Test 
-      env: 
-        CC: "gcc"
       run: |
         # Update PATH to include first to the new msys2 dev
         # environment.
-        # $env:Path = "D:\msys64\mingw64\bin;" + $env:Path
+        $env:Path = "D:\msys64\mingw64\bin;" + $env:Path
         #
         eldev -p -dtTC test
