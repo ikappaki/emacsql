@@ -242,15 +242,18 @@ specific error conditions."
 
 (cl-defmethod emacsql-parse ((connection emacsql-protocol-mixin))
   "Parse well-formed output into an s-expression."
-  (with-current-buffer (emacsql-buffer connection)
-    (goto-char (point-min))
-    (let* ((standard-input (current-buffer))
-           (value (read)))
-      (if (eql value 'error)
-          (emacsql-handle connection (read) (read))
-        (prog1 value
-          (unless (eq 'success (read))
-            (emacsql-handle connection (read) (read))))))))
+  (let ((buffer (emacsql-buffer connection)))
+    (if (buffer-live-p buffer)
+        (with-current-buffer buffer
+          (goto-char (point-min))
+          (let* ((standard-input (current-buffer))
+                 (value (read)))
+            (if (eql value 'error)
+                (emacsql-handle connection (read) (read))
+              (prog1 value
+                (unless (eq 'success (read))
+                  (emacsql-handle connection (read) (read)))))))
+      (error "Emacsql-parse: connection lost"))))
 
 (provide 'emacsql) ; end of generic function declarations
 
