@@ -9,7 +9,6 @@
 (require 'emacsql)
 
 (require 'emacsql-sqlite)
-
 (if (and (version< "29.1" emacs-version)
          (sqlite-available-p))
     (require 'sqlite)
@@ -23,9 +22,8 @@
 
 (require 'emacsql-mysql)
 (require 'emacsql-psql)
-
-(require 'pg)
-(require 'emacsql-pg)
+;; FIXME(CI) broken and thus disabled in test.yml.
+;; (when (require 'pg nil t) (require 'emacsql-pg))
 
 (defvar emacsql-tests-timeout 4
   "Be aggressive about not waiting on subprocesses in unit tests.")

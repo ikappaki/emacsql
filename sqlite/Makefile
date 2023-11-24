@@ -20,3 +20,4 @@ emacsql-sqlite: emacsql.c sqlite3.c
 
 clean:
 	rm -f emacsql-sqlite
+	rm -f emacsql-sqlite.exe
