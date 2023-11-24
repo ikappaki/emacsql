@@ -10,9 +10,12 @@
 
 (require 'emacsql-sqlite)
 
-(if (sqlite-available-p)
+(if (and (version< "29.1" emacs-version)
+         (sqlite-available-p))
     (require 'sqlite)
-  (require 'emacsql-sqlite-builtin))
+  (progn
+    (message "Emacs built in sqlite module is not available, using emacsql-sqlite-bultin instead.")
+    (require 'emacsql-sqlite-builtin)))
 
 ;; FIXME(CI) this is currently not tested because the Emacs
 ;; snapshot hasn't been compiled with sqlite support.
