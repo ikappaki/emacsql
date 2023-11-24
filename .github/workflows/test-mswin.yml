@@ -18,7 +18,7 @@ jobs:
         os: [windows-latest]
         emacs_version: ['29.1']
 
-    # steps:
+    steps:
     # - name: Setup dev env (MS-Windows)
     #   uses: msys2/setup-msys2@v2
     #   if: startsWith (matrix.os, 'windows')
