@@ -62,7 +62,7 @@ ifneq (,$(wildcard $(SQLITE3-EL-PATH)))
 ci-sqlite3-nix-fix:
 	@echo patching $(SQLITE3-EL-PATH) to build with nix...
 	sed -i 's\("make" "all")\("nix-shell" "-p" "sqlite.dev" "--run" "make all")\g' $(SQLITE3-EL-PATH)
-	sed -i 's/"make all"/"nix-shell -p sqlite.dev --run \"make all\""\g' $(SQLITE3-EL-PATH)
+	sed -i 's/"make all"/"nix-shell -p sqlite.dev --run \"make all\""/g' $(SQLITE3-EL-PATH)
 endif
 endif
 
