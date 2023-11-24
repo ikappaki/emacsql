@@ -1,9 +1,7 @@
 -include ../.config.mk
 
 .POSIX:
-ifeq ($(OS),Windows_NT)
-CC = gcc
-else
+ifneq ($(OS),Windows_NT)
 LDLIBS = -ldl -lm
 endif
 

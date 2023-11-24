@@ -14,28 +14,18 @@
          (sqlite-available-p))
     (require 'sqlite)
   (progn
-    (message "Emacs built in sqlite module is not available, using emacsql-sqlite-bultin instead.")
+    (message "Emacs built in sqlite library is not available, using emacsql-sqlite-bultin module instead.")
     (require 'emacsql-sqlite-builtin)))
 
-;; FIXME(CI) this is currently not tested because the Emacs
-;; snapshot hasn't been compiled with sqlite support.
-;; (when (require 'sqlite nil t) (require 'emacsql-sqlite-builtin))
-;; FIXME(CI) libsqlite3.so.0 cannot be found, even though
-;; it appears to be installed in the correct location.
 (require 'sqlite3)
 (require 'sqlite3-api)
 (require 'emacsql-sqlite-module)
 
-;; (unless (equal (getenv "CI") "true")
-;;   (when (require 'sqlite3 nil t)
-;;     (require 'sqlite3-api)
-;;     (require 'emacsql-sqlite-module)))
 (require 'emacsql-mysql)
 (require 'emacsql-psql)
-;; FIXME(CI) broken and thus disabled in test.yml.
+
 (require 'pg)
 (require 'emacsql-pg)
-;; (when (require 'pg nil t) (require 'emacsql-pg))
 
 (defvar emacsql-tests-timeout 4
   "Be aggressive about not waiting on subprocesses in unit tests.")

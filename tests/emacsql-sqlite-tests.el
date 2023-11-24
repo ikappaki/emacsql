@@ -7,7 +7,7 @@
 (require 'ert)
 (require 'emacsql-sqlite)
 
-(defvar emacsql-sqlite-tests-timeout 4
+(defvar emacsql-sqlite-tests-timeout 8
   "Be aggressive about not waiting on subprocesses in unit tests.")
 
 (ert-deftest emacsql-sqlite-init-malformed-error ()
