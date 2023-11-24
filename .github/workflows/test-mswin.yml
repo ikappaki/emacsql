@@ -1,4 +1,4 @@
-name: Test MS-Windows.
+name: Test MS-Windows
 permissions: read-all
 on: [ push, pull_request ]
 
