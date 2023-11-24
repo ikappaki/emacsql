@@ -4,7 +4,6 @@ on: [ push, pull_request ]
 
 jobs:
   test:
-    # Run the tests for all OSs and EMACS_VERSIONs.
     runs-on: ${{matrix.os}}
 
     strategy:
