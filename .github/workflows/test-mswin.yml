@@ -49,7 +49,7 @@ jobs:
 
     - name: Test 
       env: 
-        CC = "gcc"
+        CC: "gcc"
       run: |
         # Update PATH to include first to the new msys2 dev
         # environment.
