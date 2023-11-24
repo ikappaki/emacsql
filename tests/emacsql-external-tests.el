@@ -10,8 +10,9 @@
 
 (require 'emacsql-sqlite)
 
-(require 'sqlite)
-(require 'emacsql-sqlite-builtin)
+(if (sqlite-available-p)
+    (require 'sqlite)
+  (require 'emacsql-sqlite-builtin))
 
 ;; FIXME(CI) this is currently not tested because the Emacs
 ;; snapshot hasn't been compiled with sqlite support.
