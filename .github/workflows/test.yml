@@ -91,7 +91,7 @@ jobs:
         working-directory: sqlite3
         run: nix-shell -p sqlite.dev --run "make all"
       - name: 'Build Emacsql'
-        run: make all
+        run: nix-shell -p sqlite.dev --run "make all"
         working-directory: ${{ env.pwd }}
       - name: 'Test Emacsql'
         run: make test

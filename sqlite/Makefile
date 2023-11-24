@@ -1,9 +1,5 @@
 -include ../.config.mk
 
-ifeq ($(CI),true)
-CI_RUN = nix-shell -p sqlite.dev --run 
-endif
-
 .POSIX:
 ifeq ($(OS),Windows_NT)
 CC = gcc
@@ -22,7 +18,7 @@ CFLAGS = -O2 -Wall -Wextra -Wno-implicit-fallthrough \
     -DSQLITE_SOUNDEX
 
 emacsql-sqlite: emacsql.c sqlite3.c
-	$(CI_RUN) $(CC) $(CFLAGS) $(LDFLAGS) -o $@ emacsql.c sqlite3.c $(LDLIBS)
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ emacsql.c sqlite3.c $(LDLIBS)
 
 clean:
 	rm -f emacsql-sqlite
